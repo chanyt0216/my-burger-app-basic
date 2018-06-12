@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -108,7 +108,7 @@ class BurgerBuilder extends Component {
         }
 
         return (
-            <Fragment>
+            <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     <OrderSummary
                         ingredients={this.state.ingredients}
@@ -127,7 +127,7 @@ class BurgerBuilder extends Component {
                     price={this.state.totalPrice}
                     ordered={this.purchaseHandler}
                 />
-            </Fragment>
+            </Aux>
         );
     }
 }
