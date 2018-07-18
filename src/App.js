@@ -3,6 +3,7 @@ import Layout from './hoc/Layout/Layout';
 import BugerBuilder from './containers/BugerBuilder/BugerBuilder';
 
 class App extends Component {
+
   render() {
     return (
       <div>

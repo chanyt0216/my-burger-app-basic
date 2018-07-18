@@ -29,10 +29,13 @@ class BurgerBuilder extends Component {
 
     componentDidMount() {
         console.log("componentDidMount in burger builder");
-        axios.get('/ingredients')
+        axios.get('/ingredients.json')
             .then(response => {
+                console.log(response);
                 this.setState({ ingredients: response.data });
             }).catch(error => {
+                console.log("error", error);
+
                 this.setState({ error: true });
             });
     }
@@ -129,8 +132,6 @@ class BurgerBuilder extends Component {
                 this.setState({ loading: false, purchasing: false });
             })
             .catch(error => {
-                console.log(error);
-
                 // console.log(error.code);
                 this.setState({ loading: false, purchasing: false });
             });

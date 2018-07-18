@@ -10,19 +10,27 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
         constructor(props) {
             super(props);
-            console.log("constructor");
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
+                console.log(req);
                 this.setState({ error: null, success: null });
                 return req;
             });
 
-            axios.interceptors.response.use(res => {
+            this.resInterceptor = axios.interceptors.response.use(res => {
                 if (res.config.method !== 'get') {
                     this.setState({ success: 'Your request is already sent' });
+                    return res;
                 }
+                return res;
             }, error => {
                 this.setState({ error: error });
-            })
+            });
+        }
+
+        componentWillUnmount() {
+            console.log("Will Unmount", this.resInterceptor, this.reqInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         errorConfrimedHandler = () => {
@@ -34,7 +42,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
 
         render() {
-            console.log("render in error handler");
             return (
                 <Fragment>
                     <Modal
