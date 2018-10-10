@@ -17,11 +17,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
             });
 
             this.resInterceptor = axios.interceptors.response.use(res => {
-                if (res.config.method !== 'get') {
-                    this.setState({ success: 'Your request is already sent' });
-                    return res;
-                }
+                console.log("here1: ", res)
+                // if (res.config.method !== 'get') {
+                this.setState({ success: 'Your request is already sent' });
                 return res;
+                // }
+                // return res;
             }, error => {
                 this.setState({ error: error });
             });
@@ -52,6 +53,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                     <Modal
                         show={this.state.success}
                         modalClosed={this.successConfrimedHandler}>
+                        {console.log("Here: ", this.state.success)}
                         {this.state.success && this.state.success}
                     </Modal>
                     <WrappedComponent {...this.props} />
